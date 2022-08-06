@@ -18,7 +18,7 @@ background-color: white;
     <style>
          #xval {
             appearance: none;
-            background-color: #e4e4e4;
+            background-color: #989898;
             width: 800px;
             height: 20px;
             border-radius: 25px;
@@ -44,7 +44,7 @@ background-color: white;
         }
         #yval {
             appearance: none;
-            background-color: #e4e4e4;
+            background-color: #989898;
             width: 800px;
             height: 20px;
             border-radius: 25px;
@@ -102,15 +102,15 @@ background-color: white;
 
     </style>
 </head>
-<body style = "background-color: rgb(252, 205, 213);">
+<body style = "background-color: rgb(252, 220, 205);">
 
-           <h1 style = "text-align: center ; color: rgb(46, 87, 29); background-color: white; padding: 10px; border-radius: 20px; filter:drop-shadow(1px 1px 12px rgba(26, 26, 26, 0.363));">GRAPH BETWEEN X AND Y</h1>
+           <h1 style = "text-align: center ; color: rgb(11, 34, 83); background-color: white; padding: 10px; border-radius: 20px; filter:drop-shadow(1px 1px 12px rgba(26, 26, 26, 0.363));">GRAPH BETWEEN X AND Y</h1>
 
              <table align = "center">
                 <tr>
                     <td>
                         <label for="xval">X</label>
-                        <input type="range" id ="xval" name = "xval" min ="0 "max = "1" step = "0.0000001" value="33.3">
+                        <input type="range" id ="xval" name = "xval" min ="0 "max = "1" step = "0.0000001">
                         <input type="text" id ='textInputX' value = "">
 
                     </td>
@@ -118,7 +118,7 @@ background-color: white;
                 </tr>
 
                 <td><label for="yval">Y</label>
-                    <input type="range" id ="yval"name = "yval" min ="0" max = "1" step ="0.0000001"  value ="6">
+                    <input type="range" id ="yval"name = "yval" min ="-1" max = "1" step ="0.0000001" >
                         <INPUT type="text" id ='textInputY' value = "">
 
                 </td>
@@ -133,13 +133,13 @@ background-color: white;
             <input style = "background-color: rgb(208, 255, 188); padding: 5px 20px; margin: 20px;"type="button" id = "add" value="ADD" onclick="addelement()">
         </tr>
         <tr>
-            <input style = "background-color: rgb(208, 255, 188); padding: 5px 20px; margin: 20px;" type="button" id="plot" value = "PLOT">
+            <input style = "background-color: rgb(208, 255, 188); padding: 5px 20px; margin: 20px;" type="button" id="reset" value = "RESET" onclick="window.location.reload()">
         </tr>
         </table>
         </div>
 
          <div >
-            <table id = "values" border="1" style = "margin-left: 40px;"  >
+            <table id = "values" border="1" style = "margin-left: 40px;float: left;"  >
                 <tr> <td style = "text-align: center ; color: rgb(46, 87, 29); background-color: white; padding: 10px; border-radius: 20px; ">Index</td>
                     <td style = "text-align: center ; color: rgb(46, 87, 29); background-color: white; padding: 10px; border-radius: 20px; ">Value of X</td>
                     <td style = "text-align: center ; color: rgb(46, 87, 29); background-color: white; padding: 10px; border-radius: 20px; ">Value of Y</td>
@@ -153,12 +153,8 @@ background-color: white;
 
 
             <script>
-                var index=1;
-                var btn = document.getElementById("plot")
-                btn.onclick = function() {
-                    plotGraph();
+                var index=0;
 
-                }
                 var arr = [];
 
                     xval.oninput = function() {
@@ -181,30 +177,40 @@ background-color: white;
                 { var x = document.getElementById("xval");
                     var y = document.getElementById("yval");
 
+
                     var table = document.getElementById("values");
 
 
-                    var row = table.insertRow(-1);
+                    var row = table.insertRow(1);
                     var c1 = row.insertCell(0);
                     var c2 = row.insertCell(1);
                     var c3 = row.insertCell(2);
+                    index = index+1;
                     c1.innerHTML = index;
                     c2.innerHTML = x.value;
                     c3.innerHTML = y.value;
-                    index = index+1;
 
-                    arr.push({x: parseFloat(x.value),y: parseFloat(y.value)});
+
+                  arr.push({x: parseFloat(x.value), y: parseFloat(y.value)});
                  console.log(arr);
 
-                }
+                 document.getElementById("chartplot").style.display = "none";
+
+
+
 
                 //---------------------------------------------
-                function plotGraph() {
+                // function plotGraph() {
+                    if(index % 20 == 0)
+                    {
+                        document.getElementById("chartplot").style.display = "block";
+
+
                 var chart = new CanvasJS.Chart("chartplot", {
 
 
                     title:{
-                        text: "X  -  y graph"
+                        text: "X  -  Y   GRAPH"
                     },
                     axisX: {
                         title:"X",
@@ -215,24 +221,24 @@ background-color: white;
                         title: "Y",
                         // valueFormatString: "#,##0",
                         maximum: 1.0000000,
-                        minimum: 0.0000000
+                        minimum: -1.0000000
                     },
                     data: [{
                         type: "line",
                         toolTipContent: "<b>y: </b>{y}<br/><b>X: </b>{x}",
-                        dataPoints:  arr
-                        // [
-                        //     {x: 0.5, y: 0.5}
-                        // ]
+                        dataPoints: arr
                     }]
                 });
                 chart.render();
-
-                }
+                   arr.length = 0;
+                }}
                 //---------------------------------------------
 
                 </script>
-                <div  id = "chartplot" style = "height: 300px; width: 70%; display: block; margin-right: auto; margin-left: auto; margin-top: 30px;"></div>
+
+                <div  id = "chartplot" style = "height: 500px; width: 1200px; margin-right: auto; margin-left: 400px; margin-top: 30px; float:left; filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.355));"></div>
+
+            </div>
 
 </body>
 </html>
