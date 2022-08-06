@@ -180,8 +180,6 @@ background-color: white;
                 function addelement()
                 { var x = document.getElementById("xval");
                     var y = document.getElementById("yval");
-                    var x_value = x.value;
-                    var y_value = y.value;
 
                     var table = document.getElementById("values");
 
@@ -191,11 +189,11 @@ background-color: white;
                     var c2 = row.insertCell(1);
                     var c3 = row.insertCell(2);
                     c1.innerHTML = index;
-                    c2.innerHTML = x_value;
-                    c3.innerHTML = y_value;
+                    c2.innerHTML = x.value;
+                    c3.innerHTML = y.value;
                     index = index+1;
 
-                  arr.push({x: x_value, y: y_value});
+                    arr.push({x: parseFloat(x.value),y: parseFloat(y.value)});
                  console.log(arr);
 
                 }
@@ -223,6 +221,9 @@ background-color: white;
                         type: "line",
                         toolTipContent: "<b>y: </b>{y}<br/><b>X: </b>{x}",
                         dataPoints:  arr
+                        // [
+                        //     {x: 0.5, y: 0.5}
+                        // ]
                     }]
                 });
                 chart.render();
