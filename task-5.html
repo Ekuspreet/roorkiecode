@@ -1,0 +1,237 @@
+<!-- font-size: xx-large;
+background-color: white;
+            border-radius: 25px;
+            padding: 8px;
+            text-align: center;
+            font-weight: bolder;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <style>
+         #xval {
+            appearance: none;
+            background-color: #e4e4e4;
+            width: 800px;
+            height: 20px;
+            border-radius: 25px;
+
+        }
+
+       #xval::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 40px;
+            width: 40px;
+            border-radius: 25px;
+
+            background-color: rgba(255, 175, 175, 0.878);
+        }
+
+         #xval::-moz-slider-thumb {
+            -webkit-appearance: none;
+            height: 40px;
+            width: 40px;
+            border-radius: 25px;
+
+            background-color: rgba(255, 175, 175, 0.878);
+        }
+        #yval {
+            appearance: none;
+            background-color: #e4e4e4;
+            width: 800px;
+            height: 20px;
+            border-radius: 25px;
+
+        }
+
+       #yval::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 40px;
+            width: 40px;
+            border-radius: 25px;
+
+            background-color: rgba(255, 175, 175, 0.878);
+        }
+
+         #yval::-moz-slider-thumb {
+            -webkit-appearance: none;
+            height: 40px;
+            width: 40px;
+            border-radius: 25px;
+
+            background-color: rgba(255, 175, 175, 0.878);
+        }
+        label {
+            appearance: none;
+            position: relative;
+            top: -5px;
+            font-size: xx-large;
+            height: 40px;
+            width: 65px;
+            background-color: white;
+            border-radius: 25px;
+            padding: 8px;
+            font-weight: bolder;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+       #textInputX,#textInputY {
+            appearance: none;
+            border: none;
+            position: relative;
+            font-size: xx-large;
+            top: -5px;
+            height: 40px;
+            width: 220px;
+            background-color: white;
+            border-radius: 25px;
+            padding: 8px;
+            text-align: center;
+            font-weight: bolder;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+
+
+    </style>
+</head>
+<body style = "background-color: rgb(252, 205, 213);">
+
+           <h1 style = "text-align: center ; color: rgb(46, 87, 29); background-color: white; padding: 10px; border-radius: 20px; filter:drop-shadow(1px 1px 12px rgba(26, 26, 26, 0.363));">GRAPH BETWEEN X AND Y</h1>
+
+             <table align = "center">
+                <tr>
+                    <td>
+                        <label for="xval">X</label>
+                        <input type="range" id ="xval" name = "xval" min ="0 "max = "1" step = "0.0000001" value="33.3">
+                        <input type="text" id ='textInputX' value = "">
+
+                    </td>
+
+                </tr>
+
+                <td><label for="yval">Y</label>
+                    <input type="range" id ="yval"name = "yval" min ="0" max = "1" step ="0.0000001"  value ="6">
+                        <INPUT type="text" id ='textInputY' value = "">
+
+                </td>
+
+            </tr>
+             </table>
+        </div>
+
+        <div class="buttons" align="center">
+            <table align="center">
+                <tr>
+            <input style = "background-color: rgb(208, 255, 188); padding: 5px 20px; margin: 20px;"type="button" id = "add" value="ADD" onclick="addelement()">
+        </tr>
+        <tr>
+            <input style = "background-color: rgb(208, 255, 188); padding: 5px 20px; margin: 20px;" type="button" id="plot" value = "PLOT">
+        </tr>
+        </table>
+        </div>
+
+         <div >
+            <table id = "values" border="1" style = "margin-left: 40px;"  >
+                <tr> <td style = "text-align: center ; color: rgb(46, 87, 29); background-color: white; padding: 10px; border-radius: 20px; ">Index</td>
+                    <td style = "text-align: center ; color: rgb(46, 87, 29); background-color: white; padding: 10px; border-radius: 20px; ">Value of X</td>
+                    <td style = "text-align: center ; color: rgb(46, 87, 29); background-color: white; padding: 10px; border-radius: 20px; ">Value of Y</td>
+
+                </tr>
+
+             </table>
+
+
+
+
+
+            <script>
+                var index=1;
+                var btn = document.getElementById("plot")
+                btn.onclick = function() {
+                    plotGraph();
+
+                }
+                var arr = [];
+
+                    xval.oninput = function() {
+            textInputX.value = this.value;
+        }
+        textInputX.oninput = function() {
+            xval.value = this.value;
+        }
+        yval.oninput = function() {
+            textInputY.value = this.value;
+        }
+        textInputY.oninput = function() {
+            yval.value = this.value;
+        }
+
+
+
+
+                function addelement()
+                { var x = document.getElementById("xval");
+                    var y = document.getElementById("yval");
+                    var x_value = x.value;
+                    var y_value = y.value;
+
+                    var table = document.getElementById("values");
+
+
+                    var row = table.insertRow(1);
+                    var c1 = row.insertCell(0);
+                    var c2 = row.insertCell(1);
+                    var c3 = row.insertCell(2);
+                    c1.innerHTML = index;
+                    c2.innerHTML = x_value;
+                    c3.innerHTML = y_value;
+                    index = index+1;
+
+                  arr.push({x: x_value, y: y_value});
+                 console.log(arr);
+
+                }
+
+                //---------------------------------------------
+                function plotGraph() {
+                var chart = new CanvasJS.Chart("chartplot", {
+
+
+                    title:{
+                        text: "X  -  y graph"
+                    },
+                    axisX: {
+                        title:"X",
+                        minimum: 0.0000000,
+                        maximum: 1.0000000
+                    },
+                    axisY:{
+                        title: "Y",
+                        // valueFormatString: "#,##0",
+                        maximum: 1.0000000,
+                        minimum: 0.0000000
+                    },
+                    data: [{
+                        type: "line",
+                        toolTipContent: "<b>y: </b>{y}<br/><b>X: </b>{x}",
+                        dataPoints:  arr
+                    }]
+                });
+                chart.render();
+
+                }
+                //---------------------------------------------
+
+                </script>
+                <div  id = "chartplot" style = "height: 300px; width: 70%; display: block; margin-right: auto; margin-left: auto; margin-top: 30px;"></div>
+
+</body>
+</html>
